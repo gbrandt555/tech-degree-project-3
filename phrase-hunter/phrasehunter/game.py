@@ -18,5 +18,34 @@ class Game:
 
     def get_random_phrase(self):
         return random.choice(self.phrases)
+    
+
+    def welcome(self):
+        print("********************************\n^_^Welcome to Phrase Hunters^_^ \n********************************")
+    
+
+    def start(self):
+        self.welcome()
+        while self.missed < 5:
+            print("Number missed: {}".format(self.missed))
+            self.active_phrase.display(self.guesses)
+            user_guess = self.get_guess()
+            self.guesses.append(user_guess)
+            self.active_phrase.check_guess(user_guess)
+            if not self.active_phrase.check_guess(user_guess):
+                self.missed += 1
+            self.active_phrase.check_complete(self.guesses)
+        self.game_over()
+
+    def game_over(self):
+        if self.missed == 5:
+            print("You lose.")
+        else:
+            print("You win.")
+                
+
+    def get_guess(self):
+        return input("\nEnter a letter: ")
+        
 
 
